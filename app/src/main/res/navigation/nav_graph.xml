@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/default_fragment">
+
+    <fragment
+        android:id="@+id/default_fragment"
+        android:name="com.combyne.android.tvshowmanager.default.controllers.DefaultFragment"
+        android:label="fragment_default"
+        tools:layout="@layout/fragment_default" />
+
+    <dialog
+        android:id="@+id/add_shows_bottom_dialog_fragment"
+        android:name="com.combyne.android.tvshowmanager.addshows.controllers.AddShowBottomSheetDialog">
+        <argument android:name="arg" android:defaultValue="@null" />
+    </dialog>
+    <fragment
+        android:id="@+id/all_shows_fragment"
+        android:name="com.combyne.android.tvshowmanager.allshows.controller.AllShowsFragment"
+        android:label="AllShowsFragment" />
+</navigation>

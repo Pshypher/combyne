@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_quarter">8dp</dimen>
+    <dimen name="padding_half">12dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_standard">24dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+    <dimen name="padding_extra_large">64dp</dimen>
+
+    <dimen name="text_size_standard">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+    <dimen name="thickness">2dp</dimen>
+    <dimen name="border_thickness">2dp</dimen>
+
+    <dimen name="corner_radius">5dp</dimen>
+    <dimen name="minimum_button_height">56dip</dimen>
+</resources>
