@@ -32,9 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/padding_large"
-            app:tint="@color/blue_400"
+            app:tint="@color/teal_200"
             android:backgroundTint="@android:color/white"
-            android:contentDescription="@string/add_tv_show"
+            android:contentDescription="@string/add_new_movie"
             android:onClick="@{ () -> viewModel.addShow() }"
             app:borderWidth="@dimen/border_thickness"
             app:srcCompat="@drawable/ic_baseline_add" />

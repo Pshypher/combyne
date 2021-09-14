@@ -1,11 +1,13 @@
 package com.combyne.android.tvshowmanager.default.controllers
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.combyne.android.tvshowmanager.R
+import com.combyne.android.tvshowmanager.databinding.FragmentDefaultBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -19,7 +21,14 @@ class DefaultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_default, container, false)
+        val binding: FragmentDefaultBinding = FragmentDefaultBinding.inflate(inflater)
+        binding.addMovieButton.setOnClickListener {
+            findNavController().navigate(R.id.add_movies_bottom_dialog_fragment)
+        }
+        binding.showMoviesButton.setOnClickListener {
+            findNavController().navigate(R.id.movies_fragment)
+        }
+        return binding.root
     }
 
     companion object {

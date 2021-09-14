@@ -1,17 +1,17 @@
 package com.combyne.android.tvshowmanager.movies.controller
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.combyne.android.tvshowmanager.R
-import com.combyne.android.tvshowmanager.network.Resource.Status.*
 import com.combyne.android.tvshowmanager.databinding.FragmentMoviesBinding
 import com.combyne.android.tvshowmanager.di.ServiceLocator
+import com.combyne.android.tvshowmanager.network.Resource.Status.*
 
 /**
  * A simple [Fragment] subclass.
@@ -55,7 +55,7 @@ class MoviesFragment : Fragment() {
         viewModel.addShow.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { add ->
                 if (add) {
-                    findNavController().navigate(R.id.add_shows_bottom_dialog_fragment)
+                    findNavController().navigate(R.id.add_movies_bottom_dialog_fragment)
                 }
             }
         }

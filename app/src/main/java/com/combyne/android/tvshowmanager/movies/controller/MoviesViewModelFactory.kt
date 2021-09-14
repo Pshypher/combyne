@@ -3,9 +3,8 @@ package com.combyne.android.tvshowmanager.movies.controller
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.combyne.android.tvshowmanager.QueryUseCase
-import com.combyne.android.tvshowmanager.network.Resource
 import com.combyne.android.tvshowmanager.movies.domain.Movie
-import java.lang.IllegalArgumentException
+import com.combyne.android.tvshowmanager.network.Resource
 
 class MoviesViewModelFactory(private val fetchShows: QueryUseCase<Resource<List<Movie>>>) :
     ViewModelProvider.NewInstanceFactory() {

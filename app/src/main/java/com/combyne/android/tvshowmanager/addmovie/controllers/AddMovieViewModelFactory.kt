@@ -3,14 +3,15 @@ package com.combyne.android.tvshowmanager.addmovie.controllers
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.combyne.android.tvshowmanager.AddMovieMutation
 import com.combyne.android.tvshowmanager.CreateUseCase
 import com.combyne.android.tvshowmanager.ValidateEntryUseCase
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
-import java.lang.IllegalArgumentException
+import com.combyne.android.tvshowmanager.network.Resource
 
 class AddMovieViewModelFactory(
     private val application: Application,
-    private val addMovie: CreateUseCase<Movie>,
+    private val addMovie: CreateUseCase<Movie, Resource<AddMovieMutation.Movie?>>,
     private val validate: ValidateEntryUseCase<Movie>
 ) : ViewModelProvider.NewInstanceFactory() {
 

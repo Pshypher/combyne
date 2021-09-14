@@ -1,12 +1,12 @@
 package com.combyne.android.tvshowmanager.movies.controller
 
 import androidx.lifecycle.*
-import com.apollographql.apollo.api.Input
+import com.apollographql.apollo.exception.ApolloException
 import com.combyne.android.tvshowmanager.Event
 import com.combyne.android.tvshowmanager.QueryUseCase
+import com.combyne.android.tvshowmanager.movies.domain.Movie
 import com.combyne.android.tvshowmanager.network.Resource
 import com.combyne.android.tvshowmanager.network.Resource.Status
-import com.combyne.android.tvshowmanager.movies.domain.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
@@ -55,21 +55,23 @@ class MoviesViewModel(private val fetchMovies: QueryUseCase<Resource<List<Movie>
     private fun getAllShows() {
         var cursor: String? = null
         var hasMore = true
+        status.value = Status.LOADING
         viewModelScope.launch(Dispatchers.IO) {
             for (item in channel) {
                 try {
-                    status.value = Status.LOADING
                     fetchMovies.query(cursor)?.also { (result, endCursor, hasNextPage) ->
-                        shows.value = result
+                        shows.postValue(result)
                         cursor = endCursor
                         hasMore = hasNextPage
                     }
-                } catch (e: Exception) {
+                    status.postValue(Status.SUCCESS)
+                } catch (e: ApolloException) {
                     e.printStackTrace()
+                    status.postValue(Status.ERROR)
                 }
 
                 if (!hasMore) break
-                _endOfList.value = Event(true)
+                _endOfList.postValue(Event(true))
                 channel.close()
             }
 

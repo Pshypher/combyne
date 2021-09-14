@@ -1,10 +1,10 @@
 package com.combyne.android.tvshowmanager.movies.data.repository
 
 import com.apollographql.apollo.api.Response
-import com.combyne.android.tvshowmanager.network.Resource
 import com.combyne.android.tvshowmanager.ShowMoviesQuery
-import com.combyne.android.tvshowmanager.movies.domain.Movie
 import com.combyne.android.tvshowmanager.movies.data.datasource.MoviesRemoteDataSource
+import com.combyne.android.tvshowmanager.movies.domain.Movie
+import com.combyne.android.tvshowmanager.network.Resource
 
 class MoviesRepository private constructor() : MoviesAbstractRepository {
 

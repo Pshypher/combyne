@@ -31,7 +31,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
 
         viewModelFactory = AddMovieViewModelFactory(
             requireActivity().application,
-            ServiceLocator.provideAddShowUseCase(),
+            ServiceLocator.provideAddMovieUseCase(),
             ServiceLocator.provideValidateEntryUseCase()
         )
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddMovieViewModel::class.java)
@@ -62,7 +62,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss.getContentIfNotHandled()?.let {
                 if (it) {
                     dismiss()
-                    findNavController().navigate(R.id.all_shows_fragment)
+                    findNavController().navigate(R.id.movies_fragment)
                 }
             }
 
