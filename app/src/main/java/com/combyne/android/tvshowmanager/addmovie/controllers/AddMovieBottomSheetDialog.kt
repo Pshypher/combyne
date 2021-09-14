@@ -9,14 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.combyne.android.tvshowmanager.R
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
-import com.combyne.android.tvshowmanager.databinding.BottomSheetTvShowEntryBinding
+import com.combyne.android.tvshowmanager.databinding.BottomSheetMovieEntryBinding
 import com.combyne.android.tvshowmanager.di.ServiceLocator
+import com.combyne.android.tvshowmanager.network.Resource.Status.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
 class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
 
-    private lateinit var binding: BottomSheetTvShowEntryBinding
+    private lateinit var binding: BottomSheetMovieEntryBinding
 
     private lateinit var viewModel: AddMovieViewModel
     private lateinit var viewModelFactory: AddMovieViewModelFactory
@@ -27,7 +28,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_tv_show_entry, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_movie_entry, container, false)
 
         viewModelFactory = AddMovieViewModelFactory(
             requireActivity().application,
@@ -66,6 +67,21 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
                 }
             }
 
+        }
+
+        viewModel.status.observe(viewLifecycleOwner) { status ->
+            status.getContentIfNotHandled()?.also {
+                when (it) {
+                    LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.formFieldLayout.visibility = View.INVISIBLE
+                    }
+                    else -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.formFieldLayout.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
     }
 }

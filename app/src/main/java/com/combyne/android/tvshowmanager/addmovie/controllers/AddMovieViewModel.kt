@@ -28,17 +28,28 @@ class AddMovieViewModel(
     val dismissBottomDialogEvent: LiveData<Event<Boolean>>
         get() = _dismissBottomDialogEvent
 
+    private val _status = MutableLiveData<Event<Resource.Status>>()
+    val status: LiveData<Event<Resource.Status>>
+        get() = _status
+
     fun addShow(movie: Movie) {
         if (!validate.isValid(movie)) {
             _missingEntryFieldEvent.value =
                 Event(getApplication<Application>().resources.getString(R.string.missing_entry_fields))
         } else {
+            _status.value = Event(LOADING)
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val result = addMovie.post(movie)
                     when (result.status) {
-                        SUCCESS -> Log.i(TAG, "$movie added to remote archive.")
-                        ERROR -> Log.e(TAG, "Problem encountered with GraphQL mutate request.")
+                        SUCCESS -> {
+                            Log.i(TAG, "$movie added to remote archive.")
+                            _status.postValue(Event(SUCCESS))
+                        }
+                        ERROR -> {
+                            Log.e(TAG, "Problem encountered with GraphQL mutate request.")
+                            _status.postValue(Event(ERROR))
+                        }
                         else -> return@launch
                     }
 
