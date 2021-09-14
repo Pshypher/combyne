@@ -1,33 +1,48 @@
 package com.combyne.android.tvshowmanager.di
 
+import com.apollographql.apollo.ApolloClient
 import com.combyne.android.tvshowmanager.CreateUseCase
 import com.combyne.android.tvshowmanager.QueryUseCase
-import com.combyne.android.tvshowmanager.Resource
+import com.combyne.android.tvshowmanager.network.Resource
 import com.combyne.android.tvshowmanager.ValidateEntryUseCase
-import com.combyne.android.tvshowmanager.addshows.domain.Show
-import com.combyne.android.tvshowmanager.addshows.interactors.AddTvShow
-import com.combyne.android.tvshowmanager.addshows.interactors.ValidateEntry
-import com.combyne.android.tvshowmanager.allshows.data.datasource.AllShowsGraphQLDataSource
-import com.combyne.android.tvshowmanager.allshows.data.datasource.AllShowsRemoteDataSource
-import com.combyne.android.tvshowmanager.allshows.data.repository.AllShowsAbstractRepository
-import com.combyne.android.tvshowmanager.allshows.data.repository.AllShowsRepository
-import com.combyne.android.tvshowmanager.allshows.domain.TvShow
-import com.combyne.android.tvshowmanager.allshows.interactor.FetchAllShows
+import com.combyne.android.tvshowmanager.addmovie.interactors.AddMovie
+import com.combyne.android.tvshowmanager.addmovie.interactors.ValidateEntry
+import com.combyne.android.tvshowmanager.movies.data.datasource.MoviesGraphQLDataSource
+import com.combyne.android.tvshowmanager.movies.data.datasource.MoviesRemoteDataSource
+import com.combyne.android.tvshowmanager.movies.data.repository.MoviesAbstractRepository
+import com.combyne.android.tvshowmanager.movies.data.repository.MoviesRepository
+import com.combyne.android.tvshowmanager.movies.domain.Movie
+import com.combyne.android.tvshowmanager.movies.interactor.FetchAllMovies
+
+typealias MovieMetaData = com.combyne.android.tvshowmanager.addmovie.domain.Movie
 
 object ServiceLocator {
 
-    fun provideAddShowUseCase(): CreateUseCase<Show> =
-        AddTvShow()
+    private const val BASE_URL = "https://tv-show-manager.combyne.com/graphql"
 
-    fun provideValidateEntryUseCase(): ValidateEntryUseCase<Show> =
+    private val client by lazy {
+        provideApolloClient()
+    }
+
+    fun provideAddShowUseCase(): CreateUseCase<MovieMetaData> =
+        AddMovie()
+
+    fun provideValidateEntryUseCase(): ValidateEntryUseCase<MovieMetaData> =
         ValidateEntry()
 
-    fun provideDataSource(): AllShowsRemoteDataSource =
-        AllShowsGraphQLDataSource()
+    fun provideDataSource(): MoviesRemoteDataSource =
+        MoviesGraphQLDataSource.create(client)
 
-    fun provideRepository(): AllShowsAbstractRepository =
-        AllShowsRepository(provideDataSource())
+    fun provideRepository(): MoviesAbstractRepository =
+        MoviesRepository.create(provideDataSource())
 
-    fun provideQueryShowsUseCase(): QueryUseCase<Resource<List<TvShow>>> =
-        FetchAllShows(provideRepository())
+    fun provideQueryMoviesUseCase(): QueryUseCase<Resource<List<Movie>>> =
+        FetchAllMovies.create(provideRepository())
+
+    fun provideApolloClient() =
+        ApolloClient.builder()
+            .serverUrl(BASE_URL)
+            .build()
+
+
 }

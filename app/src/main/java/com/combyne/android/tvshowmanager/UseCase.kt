@@ -1,7 +1,7 @@
 package com.combyne.android.tvshowmanager
 
 interface QueryUseCase<out T> {
-    suspend fun query(): T?
+    suspend fun query(cursor: String?): Triple<T, String?, Boolean>?
 }
 
 interface CreateUseCase<in T> {

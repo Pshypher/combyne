@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.combyne.android.tvshowmanager.movies.domain.Movie" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_half"
+        android:elevation="@dimen/padding_quarter"
+        app:cardCornerRadius="@dimen/corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_standard"
+                android:layout_marginTop="@dimen/padding_half"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{movie.title}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Black Mirror" />
+
+            <TextView
+                android:id="@+id/release_date_label_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/release_date"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/title_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
+
+            <TextView
+                android:id="@+id/release_date_value_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/padding_large"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{movie.releaseDate}"
+                android:textColor="@color/blue_400"
+                app:layout_constraintBaseline_toBaselineOf="@+id/release_date_label_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/release_date_label_text_view"
+                tools:text="4 December 2021" />
+
+            <TextView
+                android:id="@+id/season_label_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginBottom="@dimen/padding_half"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/seasons"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/release_date_label_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/release_date_label_text_view" />
+
+            <TextView
+                android:id="@+id/season_value_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{movie.seasons}"
+                android:textColor="@color/blue_400"
+                app:layout_constraintBaseline_toBaselineOf="@+id/season_label_text_view"
+                app:layout_constraintStart_toEndOf="@+id/season_label_text_view"
+                tools:text="5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

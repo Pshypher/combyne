@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id("com.apollographql.apollo").version("$apollo_graphql_version")
+    id 'com.apollographql.apollo'
 }
 
 android {
@@ -63,4 +63,8 @@ dependencies {
     // Instrumentation Tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
+
+apollo {
+    generateKotlinModels.set(true)
 }

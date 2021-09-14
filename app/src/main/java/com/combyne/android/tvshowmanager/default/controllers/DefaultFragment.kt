@@ -30,6 +30,6 @@ class DefaultFragment : Fragment() {
          * @return A new instance of fragment DefaultFragment.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = DefaultFragment()
+        fun newInstance() = DefaultFragment()
     }
 }

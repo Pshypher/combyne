@@ -13,11 +13,11 @@
 
     <dialog
         android:id="@+id/add_shows_bottom_dialog_fragment"
-        android:name="com.combyne.android.tvshowmanager.addshows.controllers.AddShowBottomSheetDialog">
+        android:name="com.combyne.android.tvshowmanager.addmovie.controllers.AddMovieBottomSheetDialog">
         <argument android:name="arg" android:defaultValue="@null" />
     </dialog>
     <fragment
         android:id="@+id/all_shows_fragment"
-        android:name="com.combyne.android.tvshowmanager.allshows.controller.AllShowsFragment"
+        android:name="com.combyne.android.tvshowmanager.movies.controller.MoviesFragment"
         android:label="AllShowsFragment" />
 </navigation>

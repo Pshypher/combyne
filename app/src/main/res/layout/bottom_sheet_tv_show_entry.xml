@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.combyne.android.tvshowmanager.addshows.controllers.AddShowViewModel" />
+            type="com.combyne.android.tvshowmanager.addmovie.controllers.AddMovieViewModel" />
     </data>
 
     <LinearLayout

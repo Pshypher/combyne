@@ -1,0 +1,10 @@
+mutation addMovie($movie: CreateMovieInput!) {
+    createMovie(input: $movie) {
+        movie {
+            title
+            releaseDate
+            seasons
+        }
+        clientMutationId
+    }
+}

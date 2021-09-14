@@ -1,0 +1,15 @@
+query showMovies($cursor: String) {
+    movies(after: $cursor, order: [createdAt_DESC]) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        edges {
+            node {
+                title
+                releaseDate
+                seasons
+            }
+        }
+    }
+}
