@@ -11,7 +11,7 @@ import com.combyne.android.tvshowmanager.R
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
 import com.combyne.android.tvshowmanager.databinding.BottomSheetMovieEntryBinding
 import com.combyne.android.tvshowmanager.di.ServiceLocator
-import com.combyne.android.tvshowmanager.network.Resource.Status.*
+import com.combyne.android.tvshowmanager.network.Resource.Status.LOADING
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 

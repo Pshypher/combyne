@@ -1,17 +1,14 @@
 package com.combyne.android.tvshowmanager.movies.controller
 
-import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.combyne.android.tvshowmanager.movies.domain.Movie
-import java.lang.NumberFormatException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 private const val DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 private const val DATE_PATTERN = "dd MMMM, yyyy"
-private const val TAG = "BindingUtils"
 
 @BindingAdapter("date")
 fun TextView.parseReleaseDate(movie: Movie) {
