@@ -13,6 +13,7 @@ buildscript {
         constraint_layout_version = '2.1.0'
         coroutines_version = '1.5.0'
         espresso_version = '3.4.0'
+        hamcrest_version = '2.2'
         junit_version = '4.13.2'
         kotlin_gradle_plugin = '1.5.30'
         material_version = '1.4.0'

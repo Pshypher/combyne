@@ -59,6 +59,7 @@ dependencies {
 
     // Unit Test Dependencies
     testImplementation "junit:junit:$junit_version"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
 
     // AndroidX Instrumentation Tests Dependencies
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_kotlin_runner_version"
