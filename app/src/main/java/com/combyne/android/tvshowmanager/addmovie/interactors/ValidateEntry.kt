@@ -7,8 +7,8 @@ class ValidateEntry : ValidateEntryUseCase<Movie> {
 
     override fun isValid(t: Movie): Boolean {
         return with(t) {
-            !releaseDate.isNullOrEmpty() && !title.isNullOrEmpty()
-                    && !season.isNullOrEmpty()
+            !releaseDate.isNullOrBlank() && !title.isNullOrBlank()
+                    && !season.isNullOrBlank()
         }
     }
 }
