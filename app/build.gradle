@@ -76,6 +76,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_kotlin_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexmaker_version"
     androidTestImplementation "androidx.test:core:$androidx_junit_test_version"
 
     // Testing code should not be included in the main code

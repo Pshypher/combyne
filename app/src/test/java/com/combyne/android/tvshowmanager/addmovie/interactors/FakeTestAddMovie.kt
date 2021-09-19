@@ -4,7 +4,7 @@ import com.combyne.android.tvshowmanager.AddMovieMutation
 import com.combyne.android.tvshowmanager.CreateUseCase
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
 import com.combyne.android.tvshowmanager.network.Resource
-import com.combyne.android.tvshowmanager.utils.DateParser
+import com.combyne.android.tvshowmanager.utils.parse
 
 class FakeTestAddMovie private constructor(private var movie: Movie) :
     CreateUseCase<Movie, Resource<AddMovieMutation.Movie?>> {
@@ -31,7 +31,7 @@ class FakeTestAddMovie private constructor(private var movie: Movie) :
         fun create(movie: Movie): FakeTestAddMovie {
             return FakeTestAddMovie(movie).apply {
                 movie.releaseDate =
-                    DateParser.parse(DATE_PATTERN, DATE_TIME_PATTERN, movie.releaseDate)
+                    parse(DATE_PATTERN, DATE_TIME_PATTERN, movie.releaseDate)
             }
         }
     }

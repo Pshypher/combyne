@@ -1,7 +1,8 @@
 package com.combyne.android.tvshowmanager.addmovie.interactors
 
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
-import org.junit.Assert.*
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ValidateEntryTest {

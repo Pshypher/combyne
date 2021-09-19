@@ -1,4 +1,4 @@
-package com.combyne.android.tvshowmanager.movies.interactor
+package com.combyne.android.tvshowmanager.movies.interactors
 
 import com.combyne.android.tvshowmanager.QueryUseCase
 import com.combyne.android.tvshowmanager.movies.data.repository.MoviesAbstractRepository

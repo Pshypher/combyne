@@ -10,7 +10,6 @@ import com.combyne.android.tvshowmanager.*
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
 import com.combyne.android.tvshowmanager.network.Resource
 import com.combyne.android.tvshowmanager.network.Resource.Status.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddMovieViewModel(
@@ -35,15 +34,15 @@ class AddMovieViewModel(
         if (!isValid(movie)) return
 
         _status.value = Event(LOADING)
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val result = addMovie.post(movie)
                 when (result.status) {
                     SUCCESS -> {
-                        _status.postValue(Event(SUCCESS))
+                        _status.value = Event(SUCCESS)
                     }
                     ERROR -> {
-                        _status.postValue(Event(ERROR))
+                        _status.value = Event(ERROR)
                     }
                     else -> return@launch
                 }
@@ -67,9 +66,5 @@ class AddMovieViewModel(
 
     private fun dismiss() {
         _dismissBottomDialogEvent.postValue(Event(true))
-    }
-
-    companion object {
-        private const val TAG = "AddMovieViewModel"
     }
 }
