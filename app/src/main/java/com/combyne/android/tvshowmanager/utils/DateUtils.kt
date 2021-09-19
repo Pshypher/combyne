@@ -4,7 +4,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val DEFAULT_DATE = "1 January 1970"
+private const val DEFAULT_DATE = "1 January, 1970"
 
 fun parse(from: String, to: String, arg: String?): String {
     SimpleDateFormat(from, Locale.getDefault()).apply {
