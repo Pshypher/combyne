@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.combyne.android.tvshowmanager.R
+import com.combyne.android.tvshowmanager.application.TVShowApplication
 import com.combyne.android.tvshowmanager.databinding.FragmentMoviesBinding
-import com.combyne.android.tvshowmanager.di.ServiceLocator
 import com.combyne.android.tvshowmanager.network.Resource.Status.*
 
 /**
@@ -22,7 +22,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
 
-    private lateinit var viewModel: MoviesViewModel
+    private val viewModel by viewModels<MoviesViewModel> { viewModelFactory }
     private lateinit var viewModelFactory: MoviesViewModelFactory
 
     private lateinit var movieAdapter: MovieAdapter
@@ -33,8 +33,8 @@ class MoviesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies, container, false)
-        viewModelFactory = MoviesViewModelFactory(ServiceLocator.provideQueryMoviesUseCase())
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MoviesViewModel::class.java)
+        viewModelFactory =
+            MoviesViewModelFactory((requireActivity().application as TVShowApplication).query)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.combyne.android.tvshowmanager.R
 import com.combyne.android.tvshowmanager.addmovie.domain.Movie
+import com.combyne.android.tvshowmanager.application.TVShowApplication
 import com.combyne.android.tvshowmanager.databinding.BottomSheetMovieEntryBinding
-import com.combyne.android.tvshowmanager.di.ServiceLocator
 import com.combyne.android.tvshowmanager.network.Resource.Status.LOADING
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -19,7 +19,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: BottomSheetMovieEntryBinding
 
-    private lateinit var viewModel: AddMovieViewModel
+    private val viewModel by viewModels<AddMovieViewModel> { viewModelFactory }
     private lateinit var viewModelFactory: AddMovieViewModelFactory
 
     override fun onCreateView(
@@ -30,12 +30,9 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_movie_entry, container, false)
 
-        viewModelFactory = AddMovieViewModelFactory(
-            requireActivity().application,
-            ServiceLocator.provideAddMovieUseCase(),
-            ServiceLocator.provideValidateEntryUseCase()
-        )
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AddMovieViewModel::class.java)
+        val application = requireActivity().application as TVShowApplication
+        viewModelFactory =
+            AddMovieViewModelFactory(application, application.mutator, application.validator)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root
@@ -44,7 +41,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             addMovieButton.setOnClickListener {
-                viewModel?.addShow(Movie().apply {
+                viewModel?.addMovie(Movie().apply {
                     title = titleEditText.text.toString().trim()
                     releaseDate = releaseDateEditText.text.toString().trim()
                     season = seasonEditText.text.toString().trim()
@@ -56,6 +53,7 @@ class AddMovieBottomSheetDialog : BottomSheetDialogFragment() {
             invalidEntry.getContentIfNotHandled()?.let {
                 Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
                     .show()
+                dismiss()
             }
         }
 

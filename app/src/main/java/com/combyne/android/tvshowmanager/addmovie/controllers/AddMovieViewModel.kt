@@ -1,7 +1,6 @@
 package com.combyne.android.tvshowmanager.addmovie.controllers
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,34 +31,42 @@ class AddMovieViewModel(
     val status: LiveData<Event<Resource.Status>>
         get() = _status
 
-    fun addShow(movie: Movie) {
-        if (!validate.isValid(movie)) {
-            _missingEntryFieldEvent.value =
-                Event(getApplication<Application>().resources.getString(R.string.missing_entry_fields))
-        } else {
-            _status.value = Event(LOADING)
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val result = addMovie.post(movie)
-                    when (result.status) {
-                        SUCCESS -> {
-                            Log.i(TAG, "$movie added to remote archive.")
-                            _status.postValue(Event(SUCCESS))
-                        }
-                        ERROR -> {
-                            Log.e(TAG, "Problem encountered with GraphQL mutate request.")
-                            _status.postValue(Event(ERROR))
-                        }
-                        else -> return@launch
-                    }
+    fun addMovie(movie: Movie) {
+        if (!isValid(movie)) return
 
-                } catch (e: ApolloException) {
-                    e.printStackTrace()
-                } finally {
-                    _dismissBottomDialogEvent.postValue(Event(true))
+        _status.value = Event(LOADING)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = addMovie.post(movie)
+                when (result.status) {
+                    SUCCESS -> {
+                        _status.postValue(Event(SUCCESS))
+                    }
+                    ERROR -> {
+                        _status.postValue(Event(ERROR))
+                    }
+                    else -> return@launch
                 }
+            } catch (e: ApolloException) {
+                e.printStackTrace()
+            } finally {
+                dismiss()
             }
         }
+    }
+
+    private fun isValid(movie: Movie): Boolean {
+        return if (!validate.isValid(movie)) {
+            _missingEntryFieldEvent.value =
+                Event(getApplication<Application>().resources.getString(R.string.missing_entry_fields))
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun dismiss() {
+        _dismissBottomDialogEvent.postValue(Event(true))
     }
 
     companion object {
