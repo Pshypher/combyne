@@ -6,7 +6,7 @@ import com.combyne.android.tvshowmanager.network.Resource
 
 class FakeTestFetchMovies private constructor(
     private var data: List<Movie>?,
-    private var pageSize: Int = 10
+    private var pageSize: Int
 ) : QueryUseCase<Resource<List<Movie>>> {
 
     override suspend fun query(cursor: String?): Triple<Resource<List<Movie>>, String?, Boolean> {
@@ -22,7 +22,7 @@ class FakeTestFetchMovies private constructor(
 
     companion object {
 
-        fun create(data: List<Movie>, pageSize: Int): FakeTestFetchMovies {
+        fun create(data: List<Movie>?, pageSize: Int = 10): FakeTestFetchMovies {
             return FakeTestFetchMovies(data, pageSize)
         }
     }

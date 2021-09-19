@@ -52,29 +52,28 @@ class MoviesViewModel(private val fetchMovies: QueryUseCase<Resource<List<Movie>
         getAllShows()
     }
 
-    private fun getAllShows() {
+    fun getAllShows() {
         var cursor: String? = null
         var hasMore = true
         status.value = Status.LOADING
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             for (item in channel) {
                 try {
                     fetchMovies.query(cursor)?.also { (result, endCursor, hasNextPage) ->
-                        shows.postValue(result)
+                        shows.value = result
                         cursor = endCursor
                         hasMore = hasNextPage
                     }
-                    status.postValue(Status.SUCCESS)
+                    status.value = Status.SUCCESS
                 } catch (e: ApolloException) {
                     e.printStackTrace()
-                    status.postValue(Status.ERROR)
+                    status.value = Status.ERROR
                 }
 
                 if (!hasMore) break
-                _endOfList.postValue(Event(true))
+                _endOfList.value = Event(true)
                 channel.close()
             }
-
         }
     }
 
