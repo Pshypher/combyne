@@ -5,7 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".default.controllers.DefaultFragment">
+        tools:context=".splash.controllers.SplashFragment">
 
         <TextView
             android:id="@+id/default_message_text_view"

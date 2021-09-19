@@ -15,6 +15,14 @@ class MoviesRepository private constructor() : MoviesAbstractRepository {
         return parseResponse(response)
     }
 
+    /**
+     * Parses the response payload from the GraphQL query into a triple of values
+     * containing the domain object item [Movie], the position of the cursor at the
+     * end to control how paged list of items are fetched and if they are any more items
+     * to be retrieved.
+     * @param response the response payload via the GraphQL query
+     * @return a triple of a resource, endCursor and a boolean flag
+     */
     private fun parseResponse(response: Response<ShowMoviesQuery.Data>): Triple<Resource<List<Movie>>, String?, Boolean>? {
         return if (response.hasErrors()) {
             Triple(Resource.error(), null, false)
@@ -27,7 +35,7 @@ class MoviesRepository private constructor() : MoviesAbstractRepository {
                             releaseDate = edge?.node?.releaseDate.toString()
                             seasons = edge?.node?.seasons.toString()
                         }
-                    } ?: listOf()), it.pageInfo.endCursor, true)
+                    } ?: listOf()), it.pageInfo.endCursor, it.pageInfo.hasNextPage)
             }
         }
     }

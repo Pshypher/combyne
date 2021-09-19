@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/default_fragment"
-        android:name="com.combyne.android.tvshowmanager.default.controllers.DefaultFragment"
+        android:name="com.combyne.android.tvshowmanager.splash.controllers.SplashFragment"
         android:label="fragment_default"
-        tools:layout="@layout/fragment_default" />
+        tools:layout="@layout/fragment_splash" />
 
     <dialog
         android:id="@+id/add_movies_bottom_dialog_fragment"
